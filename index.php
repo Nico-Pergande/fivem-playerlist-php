@@ -1,5 +1,5 @@
 <title>LoxRP - Players</title>
-<meta name="description" content="Portfolio des Software Engeneer & Webdeveloper's Nico Pergande.">
+<meta name="description" content="LoxRP - Spielerliste">
 <meta name="author" content="Nico Pergande">
 <link rel="shortcut icon" href="server.png" />
 <style> @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap'); </style>
