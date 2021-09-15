@@ -1,4 +1,3 @@
-<title>LoxRP - Players</title>
 <meta name="description" content="LoxRP - Spielerliste">
 <meta name="author" content="Nico Pergande">
 <link rel="shortcut icon" href="server.png" />
@@ -8,7 +7,10 @@
     $players = file_get_contents('http://193.42.12.52:30120/players.json');
     $players = json_decode($players, true);
     $count = count($players);
-?>
+    
+    ?>
+
+<title>LoxRP ( <?php echo $count . " Spieler"; ?> )</title>
 
 <script>
     setInterval(reload, 3000)
