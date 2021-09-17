@@ -1,5 +1,7 @@
-<?php 
-    require('index.php');
+<?php
+    $players = file_get_contents('http://193.42.12.52:30120/players.json');
+    $players = json_decode($players, true);
+    $count = count($players);
 ?>
 
 <div class="mainpage">
