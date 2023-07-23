@@ -1,7 +1,7 @@
 <?php
-    // $players = file_get_contents('http://141.95.72.179:30120/players.json');
-    $players = file_get_contents('http://ic.npdev.eu:30120/players.json');
-    $infos = file_get_contents('http://ic.npdev.eu:30120/info.json');
+    $serverIP = '185.254.97.89';
+    $players = file_get_contents('http://' . $serverIP . ':30120/players.json');
+    $infos = file_get_contents('http://' . $serverIP . ':30120/info.json');
     $players = json_decode($players, true);
     $infos = json_decode($infos, true);
 ?>
@@ -15,40 +15,48 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>SteamId</th>
-            <th>DiscordId</th>
-            <th>FiveM License</th>
+            <th>Steam ID</th>
+            <th>Discord ID</th>
+            <th>FiveM ID</th>
+            <th>Rockstar license</th>
             <th>Ping</th>
         </tr>
-        <?php foreach($players as $player) { ?>
+        <?php foreach($players as $player) { 
+            
+            $steamid = '';
+            $discordid = '';
+            $license = '';
+            $fivem = '';
+            
+            ?>
+
+            <?php
+                foreach($player['identifiers'] as $identifier) {
+                    if (str_starts_with($identifier, 'steam:')) {
+                        $steamid = $identifier;
+                    } elseif (str_starts_with($identifier, 'discord:')) {
+                        $discordid = $identifier;
+                    } elseif (str_starts_with($identifier, 'license:')) {
+                        $license = $identifier;
+                    } elseif (str_starts_with($identifier, 'fivem:')) {
+                        $fivem = $identifier;
+                    };
+                }
+            ?>
+
             <tr>
                 <td><?php echo $player['id'] ?></td>
 
                 <td><?php echo $player['name'] ?></td>
 
-                <?php
-                foreach($player['identifiers'] as $identifier) {
-                    if (str_starts_with($identifier, 'steam:')) {
-                        ?> <td><?php echo $identifier ?></td> <?php
-                    };
-                }
-                ?>
+                <td><?php echo $steamid ?></td>
 
-                <?php
-                    foreach($player['identifiers'] as $identifier) {
-                        if (str_starts_with($identifier, 'discord:')) {
-                            ?> <td><?php echo $identifier ?></td> <?php
-                        };
-                    }
-                ?>
+                <td><?php echo $discordid ?></td>
 
-                <?php
-                foreach($player['identifiers'] as $identifier) {
-                    if (str_starts_with($identifier, 'license:')) {
-                        ?> <td><?php echo $identifier ?></td> <?php
-                    };
-                }
-                ?>
+                <td><?php echo $fivem ?></td>
+
+                <td><?php echo $license ?></td>
+
                 <td><?php echo $player['ping'] ?></td>
             </tr>
         <?php }; ?>
