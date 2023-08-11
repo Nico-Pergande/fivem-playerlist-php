@@ -4,6 +4,9 @@
     $infos = file_get_contents('http://' . $serverIP . ':30120/info.json');
     $players = json_decode($players, true);
     $infos = json_decode($infos, true);
+
+    $serverPrefix = "Awanta";
+    $teamlerCount = 0;
 ?>
 
 <title><?php echo $infos['vars']['sv_projectName']; ?> - <?php echo count($players); ?> Spieler</title>
@@ -27,6 +30,11 @@
             $discordid = '';
             $license = '';
             $fivem = '';
+
+            // check, if playername contains serverprefix
+            if (str_contains($player['name'], $serverPrefix)) {
+                $teamlerCount++;
+            }
             
             ?>
 
@@ -61,4 +69,12 @@
             </tr>
         <?php }; ?>
     </table>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <p>Es befinden sich <?php echo(count($players)) ?> Spieler auf dem Server, wovon <?php echo $teamlerCount ?> Teammitglieder sind.</p>
 </div>
